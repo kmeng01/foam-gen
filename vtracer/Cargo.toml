@@ -1,0 +1,18 @@
+[package]
+name = "rustpy_vtracer"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "rustpy_vtracer"
+crate-type = ["cdylib"]
+
+[dependencies]
+vtracer = { git = "https://github.com/kmeng01/vtracer" }
+visioncortex = "0.6.0"
+image = "0.24.3"
+rand = "0.8.5"
+
+[dependencies.pyo3]
+version = "0.16.5"
+features = ["extension-module", "abi3-py37"]
