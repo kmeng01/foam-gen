@@ -15,13 +15,14 @@ Use [`main.ipynb`](main.ipynb) to run the code.
 
 Create Python 3.9 environment:
 ```bash
-conda create -n env python=3.9
-conda activate env
+conda create -n foam-gen python=3.9 -y
+conda activate foam-gen
 ```
 
 Install Python/Rust dependencies:
 ```bash
 ./setup.sh
 ```
+See [`setup.sh`](setup.sh) for more details.
 
 (To be completed)
