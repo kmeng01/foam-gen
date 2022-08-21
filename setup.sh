@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Install Python requirements
 pip install -r requirements.txt
