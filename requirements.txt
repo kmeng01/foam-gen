@@ -1,5 +1,5 @@
 transformers==4.21.1
 numpy==1.23.2
-torch==1.12.1
+torch==1.11.0
 maturin==0.13.2
 git+https://github.com/huggingface/diffusers.git@3cde81408fa7814b228bce49372f22c421da5a18
