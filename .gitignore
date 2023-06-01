@@ -6,3 +6,10 @@ wandb
 stable-diffusion-v1-3-diffusers
 .ipynb_checkpoints
 .vscode
+
+
+*.png
+*.svg
+*.jpeg
+*.jpg
+*.gcode

@@ -23,9 +23,10 @@ CACHE_PATH = "/root/model_cache"
     secret=modal.ref("stable_diffuse_secret"),
 )
 async def run_stable_diffusion(prompt: str, channel_name: Optional[str] = None):
+    import base64
+
     from diffusers import StableDiffusionPipeline
     from torch import autocast
-    import base64
 
     pipe = StableDiffusionPipeline.from_pretrained(
         "CompVis/stable-diffusion-v1-4",
@@ -42,16 +43,13 @@ async def run_stable_diffusion(prompt: str, channel_name: Optional[str] = None):
     img_bytes = buf.getvalue()
     im_b64 = base64.b64encode(img_bytes).decode("utf8")
 
-    # if channel_name:
-    #     # `post_to_slack` is implemented further below.
-    #     post_image_to_slack(prompt, channel_name, img_bytes)
-
     return im_b64
 
 
 @stub.webhook(method="POST")
 async def entrypoint(request: Request):
     from modal.functions import FunctionCall
+
     body = await request.form()
     prompt = body["text"]
     call = run_stable_diffusion.submit(prompt)
@@ -60,19 +58,3 @@ async def entrypoint(request: Request):
     except TimeoutError:
         return "Timed out, sorry!"
     return im_b64
-
-
-# if __name__ == "__main__":
-#     import sys
-
-#     if len(sys.argv) > 1:
-#         prompt = sys.argv[1]
-#     else:
-#         prompt = "oil painting of a shiba"
-
-#     os.makedirs(OUTPUT_DIR, exist_ok=True)
-
-#     with stub.run():
-#         img_bytes = run_stable_diffusion(prompt)
-#         with open(os.path.join(OUTPUT_DIR, "output.png"), "wb") as f:
-#             f.write(img_bytes)
