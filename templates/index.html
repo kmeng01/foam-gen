@@ -17,7 +17,7 @@
 </head>
 <body class="flex items-center justify-center h-screen">
   <div class="w-full max-w-md">
-    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onsubmit="performSearch()">
+    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onsubmit="performSearch(); return false;">
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="search">
           what are you dreaming of?
@@ -35,7 +35,7 @@
     function performSearch() {
       const searchQuery = document.getElementById('search').value;
       console.log(searchQuery);
-      fetch('http://localhost:8000/generate?q=' + encodeURI(searchQuery))
+      fetch('http://localhost:8000/generate?prompt=' + encodeURI(searchQuery))
       .then(response => response.json())
       .then(data => {
         console.log(data);

@@ -19,11 +19,13 @@ def home():
 @app.route("/generate", methods=["GET"])
 def generate():
     prompt = request.args.get("prompt")
+    print(f"Got request: {prompt}")
 
     # Generate shit
     image_url = generate_image(f"Simple line drawing of {prompt}")
     print(image_url)
     image_to_svg(image_url, "output.svg")
+    print("Generated")
 
     # Control to execute Makelangelo
     keyboard = Keyboard()
