@@ -8,3 +8,7 @@ conda create -n foam-gen python=3.10 -y
 conda activate foam-gen
 pip install -r requirements.txt
 ```
+to run shit:
+```bash
+bash run.sh
+```
