@@ -1,7 +1,7 @@
 import sys
 
 import requests
-from flask import Flask, request
+from flask import Flask, request, render_template
 from flask_cors import CORS
 
 from controller import Keyboard, cmd_plus
@@ -9,6 +9,11 @@ from generate import generate_image, image_to_svg
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
+
+
+@app.route("/", methods=["GET"])
+def home():
+    return render_template('index.html')
 
 
 @app.route("/generate", methods=["GET"])
@@ -36,7 +41,5 @@ def generate():
 
     return "OK"
 
-
 if __name__ == "__main__":
-    assert sys.platform == "darwin", "Only works on MacOS"
-    app.run()
+    app.run(port=8000)

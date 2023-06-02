@@ -5,4 +5,3 @@ scikit-image==0.20.0
 Flask==2.3.2
 Flask-Cors==3.0.10
 pyobjc==9.1.1
-uvicorn==0.22.0

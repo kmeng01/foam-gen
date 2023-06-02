@@ -1,2 +1,2 @@
 #!/bin/bash
-uvicorn api:app --reload
+python3 api.py
