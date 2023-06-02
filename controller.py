@@ -3,8 +3,6 @@ import time
 
 from Quartz.CoreGraphics import CGEventCreateKeyboardEvent, CGEventPost, kCGHIDEventTap
 
-# from Quartz.CoreGraphics import CFRelease # Python releases things automatically.
-
 
 class Keyboard:
     shiftChars = {
