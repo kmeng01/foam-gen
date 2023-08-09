@@ -16,7 +16,7 @@ def generate_image(prompt):
     return image_url
 
 
-def image_to_svg(image_path, svg_path):
+def image_to_svg(image_path, svg_path, default_w=500, default_h=500):
     # Load image
     img = imageio.imread(image_path)
 
@@ -28,7 +28,7 @@ def image_to_svg(image_path, svg_path):
     regions = np.digitize(img_gray, bins=thresholds)
 
     # Create a new SVG drawing
-    dwg = svgwrite.Drawing(svg_path, profile="tiny")
+    dwg = svgwrite.Drawing(svg_path, size=(default_w, default_h), profile="tiny")
 
     # Store all contours in a list
     all_contours = []
@@ -50,13 +50,13 @@ def image_to_svg(image_path, svg_path):
         # Flip new x
         contour[:, 0] = img.shape[1] - contour[:, 0]
 
-        # Normalize coordinates
+        # Normalize coordinates to fit within the SVG width and height
         contour[:, 0] = (contour[:, 0] - x_min) / (
             x_max - x_min
-        ) * 500 - 250  # X to range -250 to 250
+        ) * default_w
         contour[:, 1] = (contour[:, 1] - y_min) / (
             y_max - y_min
-        ) * 500 - 250  # Y to range -350 to 350
+        ) * default_h
 
         dwg.add(dwg.polyline(contour, fill="none", stroke="black"))
 
