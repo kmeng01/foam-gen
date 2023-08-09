@@ -4,7 +4,7 @@ import requests
 from flask import Flask, request, render_template
 from flask_cors import CORS
 
-from controller import Keyboard, cmd_plus
+from controller_macos import Keyboard, cmd_plus
 from generate import generate_image, image_to_svg
 
 app = Flask(__name__)

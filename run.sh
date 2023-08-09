@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ngrok http 8000 > ngrok.txt 2>&1 &
+ngrok http 8000 > /dev/null 2>&1 &
 ngrok_pid=$!
 echo "PID of ngrok process: $ngrok_pid"
 
