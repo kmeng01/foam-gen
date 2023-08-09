@@ -6,7 +6,7 @@ from skimage import color
 from skimage.filters import threshold_multiotsu
 from skimage.measure import find_contours
 
-openai.api_key = "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"
+openai.api_key = "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"
 openai.organization = "org-hQq8ktL14LcqgFbmHicl29Z3"
 
 
@@ -56,7 +56,7 @@ def image_to_svg(image_path, svg_path):
         ) * 500 - 250  # X to range -250 to 250
         contour[:, 1] = (contour[:, 1] - y_min) / (
             y_max - y_min
-        ) * 500 - 250  # Y to range -350 to 350
+        ) * 500 - 350  # Y to range -350 to 350
 
         dwg.add(dwg.polyline(contour, fill="none", stroke="black"))
 
