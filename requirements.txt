@@ -4,4 +4,4 @@ svgwrite==1.4.3
 scikit-image==0.20.0
 Flask==2.3.2
 Flask-Cors==3.0.10
-pyobjc==9.1.1
+pynput==1.7.6
