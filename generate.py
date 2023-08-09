@@ -16,7 +16,7 @@ def generate_image(prompt):
     return image_url
 
 
-def image_to_svg(image_path, svg_path, svg_width=500, svg_height=500):
+def image_to_svg(image_path, svg_path, svg_width=300, svg_height=300):
     # Load image
     img = imageio.imread(image_path)
 
