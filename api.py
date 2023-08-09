@@ -4,7 +4,7 @@ import requests
 from flask import Flask, request, render_template
 from flask_cors import CORS
 
-from controller_macos import Keyboard, cmd_plus
+from controller import Key, execute, ctrl_plus
 from generate import generate_image, image_to_svg
 
 app = Flask(__name__)
@@ -28,16 +28,15 @@ def generate():
     print("Generated")
 
     # Control to execute Makelangelo
-    keyboard = Keyboard()
-    keyboard.Execute(
+    execute(
         [
-            *cmd_plus("o"),
+            *ctrl_plus("o"),
             ("sleep", 2),
-            ("\n", "D"),
-            ("\n", "U"),
-            ("esc", "D"),
-            ("esc", "U"),
-            *cmd_plus("t"),
+            (Key.enter, "D"),
+            (Key.enter, "U"),
+            (Key.esc, "D"),
+            (Key.esc, "U"),
+            *ctrl_plus("t"),
         ]
     )
 
