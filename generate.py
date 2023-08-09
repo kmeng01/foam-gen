@@ -58,8 +58,8 @@ def image_to_svg(image_path, svg_path, svg_width=300, svg_height=300):
         contour[:, 0] = img.shape[1] - contour[:, 0]
 
         # Normalize and center coordinates to fit within the SVG width and height
-        contour[:, 0] = ((contour[:, 0] - contours_center[0]) / contours_width) * svg_width + svg_width / 2
-        contour[:, 1] = ((contour[:, 1] - contours_center[1]) / contours_height) * svg_height + svg_height / 2
+        contour[:, 0] = ((contour[:, 0] - contours_center[0]) / contours_width) * svg_width - svg_width / 2
+        contour[:, 1] = ((contour[:, 1] - contours_center[1]) / contours_height) * svg_height - svg_height / 2
 
         dwg.add(dwg.polyline(contour, fill="none", stroke="black"))
 
