@@ -16,7 +16,7 @@ def generate_image(prompt):
     return image_url
 
 
-def image_to_svg(image_path, svg_path, default_w=500, default_h=500):
+def image_to_svg(image_path, svg_path, svg_width=500, svg_height=500):
     # Load image
     img = imageio.imread(image_path)
 
@@ -27,8 +27,8 @@ def image_to_svg(image_path, svg_path, default_w=500, default_h=500):
     thresholds = threshold_multiotsu(img_gray)
     regions = np.digitize(img_gray, bins=thresholds)
 
-    # Create a new SVG drawing
-    dwg = svgwrite.Drawing(svg_path, size=(default_w, default_h), profile="tiny")
+    # Create a new SVG drawing with specified width and height
+    dwg = svgwrite.Drawing(svg_path, size=(svg_width, svg_height), profile="tiny")
 
     # Store all contours in a list
     all_contours = []
@@ -43,6 +43,13 @@ def image_to_svg(image_path, svg_path, default_w=500, default_h=500):
     x_min, y_min = np.min(all_contours_array, axis=0)
     x_max, y_max = np.max(all_contours_array, axis=0)
 
+    # Calculate width and height of the contours
+    contours_width = x_max - x_min
+    contours_height = y_max - y_min
+
+    # Calculate the center of the contours
+    contours_center = [(x_min + x_max) / 2, (y_min + y_max) / 2]
+
     # Add each contour as a path to the SVG drawing
     for contour in all_contours:
         # Swap x and y
@@ -50,13 +57,9 @@ def image_to_svg(image_path, svg_path, default_w=500, default_h=500):
         # Flip new x
         contour[:, 0] = img.shape[1] - contour[:, 0]
 
-        # Normalize coordinates to fit within the SVG width and height
-        contour[:, 0] = (contour[:, 0] - x_min) / (
-            x_max - x_min
-        ) * default_w
-        contour[:, 1] = (contour[:, 1] - y_min) / (
-            y_max - y_min
-        ) * default_h
+        # Normalize and center coordinates to fit within the SVG width and height
+        contour[:, 0] = ((contour[:, 0] - contours_center[0]) / contours_width) * svg_width + svg_width / 2
+        contour[:, 1] = ((contour[:, 1] - contours_center[1]) / contours_height) * svg_height + svg_height / 2
 
         dwg.add(dwg.polyline(contour, fill="none", stroke="black"))
 
